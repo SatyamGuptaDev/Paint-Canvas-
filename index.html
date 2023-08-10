@@ -7,6 +7,27 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+
+
+    <canvas id="canvas">
+        <p>Sorry, your browser doesn't support canvas.</p>
+    </canvas>
+
+
+    <div id="tool-box">
+        <div class="child">
+            <label for="color-picker">Color : </label>
+            <input type="color" id="color-picker" value="black">
+        </div>
+        <div class="child">
+            <label for="range">Width : </label>
+            <input type="range" min="1" max="100" value="3" id="range">
+            <button id="eraser"><img src="eraser.png"></button>
+        </div>
+    </div>
+
+
+
+    <script src="script.js"></script>
 </body>
 </html>
