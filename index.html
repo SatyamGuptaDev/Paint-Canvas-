@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paint Canvas</title>
     <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
 
@@ -13,21 +14,23 @@
         <p>Sorry, your browser doesn't support canvas.</p>
     </canvas>
 
-
-    <div id="tool-box">
+<div id="tool-box">
+    <div class="parent">
+        <div id="move">
+            <i class='bx bx-move'></i>
+            <label for="move">Move</label>
+        </div>
         <div class="child">
             <label for="color-picker">Color : </label>
-            <input type="color" id="color-picker" value="black">
+            <input type="color" id="color-picker" value="">
         </div>
         <div class="child">
             <label for="range">Width : </label>
             <input type="range" min="1" max="100" value="3" id="range">
-            <button id="eraser"><img src="eraser.png"></button>
+            <div id="eraser" class="eraser"><img src="eraser.png"></div>
         </div>
     </div>
-
-
-
+</div>
     <script src="script.js"></script>
 </body>
 </html>

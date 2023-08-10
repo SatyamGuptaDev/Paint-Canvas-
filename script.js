@@ -23,7 +23,11 @@ let lastY = 0;
 
 function draw(e){
     ctx.lineWidth = widthSelect.value;
-    color = colorSelect.value;
+    ctx.strokeStyle = colorSelect.value;
+
+    if(eraser.classList.contains('active')){
+        ctx.strokeStyle = '#FFFFFF';
+    }
 
     if(!isDrawing){
         lastX = e.offsetX;
@@ -35,7 +39,6 @@ function draw(e){
 
 
     ctx.beginPath();
-    ctx.strokeStyle = `${color}`;
 
 
     ctx.moveTo(lastX,lastY);
@@ -52,22 +55,63 @@ canvas.addEventListener('mouseout',()=> isDrawing = false);
 
 
 
+const toolbox = document.getElementById('tool-box');
+const parent = document.getElementsByClassName('parent');
+
+
 widthSelect.addEventListener('change',()=>{
     ctx.lineWidth = widthSelect.value;
 });
+
+
+
 
 const eraser = document.getElementById('eraser');
 
 eraser.addEventListener('click',()=>{
     if(eraser.classList.contains('active')){
-        ctx.strokeStyle = 'white';
-        ctx.lineWidth = 20;
-        eraser.classList.add('active');
-    }
-    else{
         ctx.strokeStyle = `${color}`;
         ctx.lineWidth = widthSelect.value;
         eraser.classList.remove('active');
+        console.log('eraser deslected');
+    }
+    else{
+        ctx.strokeStyle = '#FFFFFF';
+        ctx.lineWidth = 20;
+        eraser.classList.add('active');
+        console.log('eraser selected');
     }
 });
 
+
+
+
+
+
+let isDragging = false;
+let dragStartX, dragStartY;
+
+const move = document.getElementById('move');
+
+move.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    dragStartX = e.clientX - toolbox.getBoundingClientRect().left;
+    dragStartY = e.clientY - toolbox.getBoundingClientRect().top;
+
+    toolbox.classList.add('dragging');
+});
+
+document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+
+    const x = e.clientX - dragStartX;
+    const y = e.clientY - dragStartY;
+
+    toolbox.style.left = `${x}px`;
+    toolbox.style.top = `${y}px`;
+});
+
+document.addEventListener('mouseup', () => {
+    isDragging = false;
+    toolbox.classList.remove('dragging');
+});
